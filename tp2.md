@@ -3,5 +3,5 @@
 ```sql
 SELECT DISTINCT nomComp
     FROM Composant
-    WHERE Composant.type = "CM";
+    WHERE type = "CM" AND marque="Abit";
 ```

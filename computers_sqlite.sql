@@ -6,7 +6,7 @@ CREATE TABLE composant
   (refcomp	TEXT    PRIMARY KEY,
    nomcomp	TEXT	NOT NULL,
    marque	TEXT	NULL,
-   typecomp	TEXT	NULL
+   type     TEXT	NULL
   );
 
 INSERT INTO composant VALUES('MS6260S','Matsonic MS6260','Matsonic','CM');
