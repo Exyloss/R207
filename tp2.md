@@ -39,43 +39,82 @@ SELECT nomPC, nomComp
 4. noms des machines équipées d'une carte vidéo avec au moins 8Mo de mémoire vidéo
 
 ```sql
-
+SELECT nomPC
+    FROM Machine
+    INNER JOIN Assemble ON Machine.numPC = Assemble.numPC
+    INNER JOIN CarteVideo ON Assemble.refComp = CarteVideo.refComp
+    WHERE ramVideo >= 8;
 ```
 
 5. noms des machines équipées d'un processeur supportant les instructions 3DNow
 
 ```sql
-
+SELECT nomPC
+    FROM Machine
+    INNER JOIN Assemble ON Machine.numPC = Assemble.numPC
+    INNER JOIN Processeur ON Assemble.refComp = Processeur.refComp
+    WHERE TroisDNow = "oui";
 ```
 
 6. noms de tous les composants équipant les machines de l'atelier
 
 ```sql
+SELECT nomComp
+    FROM Composant
+    INNER JOIN Assemble ON Composant.refComp = Assemble.refComp
+    INNER JOIN Machine ON Assemble.numPC = Machine.numPC
+    WHERE salle = "atelier";
 
 ```
 
 7. liste des salles dans lesquelles se trouve au moins une machine équipée d'une carte son
 
 ```sql
-
+SELECT DISTINCT salle
+    FROM Machine
+    INNER JOIN Assemble ON Machine.numPC = Assemble.numPC
+    INNER JOIN Composant ON Assemble.refComp = Composant.refComp
+    WHERE type = "Son";
 ```
 
 8. noms des cartes vidéos sur lesquelles sont reliés des écrans de la marque teco
 
 ```sql
-
+SELECT DISTINCT C1.nomComp
+    FROM Assemble A1
+    INNER JOIN Composant C1 ON A1.refComp = C1.refComp
+    WHERE type="Video" AND EXISTS (
+        SELECT *
+            FROM Composant C2
+            INNER JOIN Assemble A2 ON C2.refComp = A2.refComp
+            WHERE A2.numPC = A1.numPC AND C2.type = "Ecran" AND C2.marque = "teco"
+    );
 ```
 
 9. noms des machines qui ne sont pas équipées de carte son (donner 2 solutions)
 
 ```sql
-
+SELECT M.nomPC
+    FROM Machine M
+    WHERE NOT EXISTS (
+        SELECT *
+            FROM Assemble A
+            INNER JOIN Composant C ON A.refComp = C.refComp
+            WHERE A.numPC = M.numPC AND C.type = "Son"
+    );
 ```
 
 10. noms des machines équipées de processeurs Celeron
 
 ```sql
-
+SELECT M.nomPC
+    FROM Machine M
+    WHERE EXISTS (
+        SELECT *
+            FROM Assemble A
+            INNER JOIN Composant C ON A.refComp = C.refComp
+            WHERE A.numPC = M.numPC AND C.nomComp LIKE 'Celeron%'
+    );
 ```
 
 11. numéros de machines achetées en 1999
