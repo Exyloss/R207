@@ -128,5 +128,44 @@ SELECT nompc
 12. noms des machines équipées d'au moins un composant de chaque type (noms des machines telles qu'il n'y ait pas de type de composant dont elles ne possèdent pas au moins un élément
 
 ```sql
+SELECT nompc
+    FROM Machine
+    WHERE NOT EXISTS (
+        SELECT DISTINCT C1.type
+            FROM Composant C1
+            WHERE NOT EXISTS (
+                SELECT *
+                    FROM Assemble
+                    INNER JOIN Composant C2 ON Assemble.refComp = C2.refComp
+                    WHERE Assemble.numpc = Machine.numpc AND C2.type = C1.type
+            )
+    );
+```
 
+13. noms des machines équipées de disques durs SCSI
+
+```sql
+SELECT nompc
+    FROM Machine
+    INNER JOIN Assemble ON Machine.numpc = Assemble.numpc
+    INNER JOIN DisqueDur ON Assemble.RefComp = DisqueDur.refComp
+    WHERE DisqueDur.interface = 'SCSI';
+```
+
+14. noms des machines qui ne sont pas équipées de disques durs IDE
+
+```sql
+SELECT DISTINCT nompc
+    FROM Machine
+    INNER JOIN Assemble ON Machine.numpc = Assemble.numpc
+    INNER JOIN DisqueDur ON Assemble.refComp = DisqueDur.RefComp
+    WHERE DisqueDur.interface != 'IDE';
+```
+
+15. liste des marques de cartes mères utilisées dans l'entreprise
+
+```sql
+SELECT DISTINCT marque
+    FROM Composant
+    WHERE type = 'CM';
 ```

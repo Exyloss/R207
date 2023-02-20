@@ -123,8 +123,6 @@ SELECT DISTINCT F.nomFour
 
 (c) noms des fournisseurs tels qu'il n'y ait pas de produit qu'ils n'aient pas livré (...)
 
-Fausse
-
 ```sql
 SELECT DISTINCT F1.nomFour
     FROM Fournisseur F1
