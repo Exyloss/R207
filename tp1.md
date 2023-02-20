@@ -130,7 +130,7 @@ SELECT DISTINCT F1.nomFour
         SELECT DISTINCT P1.numProd
             FROM Produit P1
             WHERE NOT EXISTS (
-                SELECT S2.numFour
+                SELECT *
                     FROM Stock S2
                     WHERE S2.numProd = P1.numProd AND 
                         S2.numFour = F1.numFour

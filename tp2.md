@@ -104,6 +104,17 @@ SELECT M.nomPC
     );
 ```
 
+```sql
+SELECT M.nomPC
+    FROM Machine M
+    WHERE "Son" NOT IN (
+        SELECT C.type
+            FROM Assemble A
+            INNER JOIN Composant C ON A.refComp = C.refComp
+            WHERE A.numPC = M.numPC
+    );
+```
+
 10. noms des machines équipées de processeurs Celeron
 
 ```sql
@@ -137,7 +148,8 @@ SELECT nompc
                 SELECT *
                     FROM Assemble
                     INNER JOIN Composant C2 ON Assemble.refComp = C2.refComp
-                    WHERE Assemble.numpc = Machine.numpc AND C2.type = C1.type
+                    WHERE Assemble.numpc = Machine.numpc AND
+                        C2.type = C1.type
             )
     );
 ```
@@ -165,7 +177,9 @@ SELECT DISTINCT nompc
 15. liste des marques de cartes mères utilisées dans l'entreprise
 
 ```sql
-SELECT DISTINCT marque
-    FROM Composant
-    WHERE type = 'CM';
+SELECT DISTINCT marque 
+    FROM Machine 
+    INNER JOIN Assemble ON Machine.numPC = Assemble.numPC 
+    INNER JOIN Composant ON Assemble.refComp = Composant.refComp 
+    WHERE type="CM";
 ```
