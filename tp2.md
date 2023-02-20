@@ -120,10 +120,12 @@ SELECT M.nomPC
 11. numéros de machines achetées en 1999
 
 ```sql
-
+SELECT nompc
+    FROM Machine
+    WHERE dateachat LIKE '%/1999';
 ```
 
-12. noms des machines équipées d'au moins un composant de chaque type
+12. noms des machines équipées d'au moins un composant de chaque type (noms des machines telles qu'il n'y ait pas de type de composant dont elles ne possèdent pas au moins un élément
 
 ```sql
 
