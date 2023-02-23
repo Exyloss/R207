@@ -1,0 +1,38 @@
+[
+  [
+    "pc01",
+    "Serveur Etud",
+    "15/06/1999",
+    "atelier"
+  ],
+  [
+    "pc02",
+    "PC Admin",
+    "15/06/1999",
+    "atelier"
+  ],
+  [
+    "pc03",
+    "station 1",
+    "20/07/1999",
+    "showroom"
+  ],
+  [
+    "pc04",
+    "station 2",
+    "20/07/1999",
+    "showroom"
+  ],
+  [
+    "pc05",
+    "PC du chef",
+    "10/01/2000",
+    "bureau"
+  ],
+  [
+    "pc06",
+    "PC codeur",
+    "02/10/1998",
+    "grenier"
+  ]
+]
