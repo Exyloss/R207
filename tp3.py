@@ -25,6 +25,13 @@ def html_print(req: str) -> int:
     return 1
 
 def bdd2json(req: str, file: str) -> int:
+    """
+    Format du JSON de sortie :
+    [
+        [valeur, ...],
+        ...
+    ]
+    """
     res = cur.execute(req)
     tab = [[j for j in i] for i in res]
     string = json.dumps(tab, indent=2)
